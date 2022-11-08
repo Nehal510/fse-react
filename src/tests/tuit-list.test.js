@@ -1,11 +1,10 @@
-import {Tuits} from "../components/tuits";
+import Tuits from "../components/tuits";
 import {screen, render} from "@testing-library/react";
 import {HashRouter} from "react-router-dom";
 import {findAllTuits} from "../services/tuits-service";
 import axios from "axios";
 
 //jest.mock('axios');
-const mock = jest.spyOn(axios, 'get');
 
 const MOCKED_USERS = [
   "alice", "bob", "charlie"
@@ -46,18 +45,18 @@ test('tuit list renders static tuit array', () => {
 });
 
 test('tuit list renders async', async () => {
-  mock.mockRestore();
   const tuits = await findAllTuits();
   render(
       <HashRouter>
         <Tuits tuits={tuits}/>
       </HashRouter>);
-  const linkElement = screen.getByText(/tuit2/i);
+  const linkElement = screen.getByText(/Hello there!/i);
   expect(linkElement).toBeInTheDocument();
 });
 
 test('tuit list renders mocked', async () => {
-  axios.get.mockImplementation(() =>
+    const mock = jest.spyOn(axios, 'get');
+  mock.mockImplementation(() =>
       Promise.resolve({ data: {tuits: MOCKED_TUITS_NEW} }));
   const response = await findAllTuits();
   const tuits = response.tuits;

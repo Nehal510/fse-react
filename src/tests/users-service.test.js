@@ -7,21 +7,14 @@ import {
 describe('createUser', () => {
   // sample user to insert
   const ripley = {
-    username: 'ellenripley',
+    username: 'sygorney',
     password: 'lv426',
     email: 'ellenripley@aliens.com'
   };
-
-  // setup test before running test
-  beforeAll(() => {
-    // remove any/all users to make sure we create it in the test
-    return deleteUsersByUsername(ripley.username);
-  })
-
   // clean up after test runs
-  afterAll(() => {
+  afterAll(async() => {
     // remove any data we created
-    return deleteUsersByUsername(ripley.username);
+    return await deleteUsersByUsername(ripley.username);
   })
 
   test('can insert new users with REST API', async () => {
@@ -95,7 +88,7 @@ describe('findUserById',  () => {
     expect(newUser.email).toEqual(adam.email);
 
     // retrieve the user from the database by its primary key
-    const existingUser = await findUserById(newUser._id);
+    const existingUser = await findUserById(newUser.id);
 
     // verify retrieved user matches parameter user
     expect(existingUser.username).toEqual(adam.username);

@@ -6,31 +6,35 @@ describe('createTuit', () => {
     };
     let createdTuit;
     test('can create tuit with REST API', async () => {
-        createdTuit = await createTuit("6352ac2bbf252f9a7d577d41", newTuit);
+        createdTuit = await createTuit("6359dccc43d0f42c5eaad565", newTuit);
 
         expect(createdTuit.tuit).toEqual(newTuit.tuit);
     });
     afterAll(() => {
-        return deleteTuit(createdTuit._id);
+        return deleteTuit(createdTuit.id);
     });
 });
 
 describe('deleteTuitById', () => {
     const newTuit = {
-        tuit: 'Hey, there!'
+        tuit: 'Hey, there 123!'
     };
     let createdTuit;
     beforeAll(async() => {
-        createdTuit = await createTuit("6352ac2bbf252f9a7d577d41", newTuit);
+        try {
+            createdTuit = await createTuit("6359dccc43d0f42c5eaad565", newTuit);
+        } catch (e) {
+            console.log(e)
+        }
         return createdTuit;
     });
     test('can delete tuit with REST API', async () => {
-        const status = await deleteTuit(createdTuit._id);
+        const status = await deleteTuit(createdTuit.id);
 
         expect(status.deletedCount).toBeGreaterThanOrEqual(1);
     });
     afterAll(() => {
-        return deleteTuit(createdTuit._id);
+        return deleteTuit(createdTuit.id);
     });
 });
 
@@ -40,14 +44,14 @@ describe('findTuitById', () => {
     };
     let createdTuit;
     test('can retrieve a tuit by their primary key with REST API', async () => {
-        createdTuit = await createTuit("6352ac2bbf252f9a7d577d41", newTuit);
+        createdTuit = await createTuit("6359dccc43d0f42c5eaad565", newTuit);
         expect(createdTuit.tuit).toEqual(newTuit.tuit);
 
-        const existingTuit = await findTuitById(createdTuit._id);
+        const existingTuit = await findTuitById(createdTuit.id);
         expect(existingTuit.tuit).toEqual(newTuit.tuit);
     });
     afterAll(() => {
-        return deleteTuit(createdTuit._id);
+        return deleteTuit(createdTuit.id);
     });
 });
 
@@ -59,7 +63,7 @@ describe('findAllTuits', () => {
     newTuits = new Array(tuits.length);
     beforeAll(async() => {
       await Promise.all(tuits.map(async tuit => {
-          newTuits[i] = await createTuit("6352ac2bbf252f9a7d577d41", {tuit: tuit}).then(i=i+1)
+          newTuits[i] = await createTuit("6359dccc43d0f42c5eaad565", {tuit: tuit}).then(i=i+1)
       }))
     });
     test('can retrieve all tuits with REST API', async () => {
@@ -77,7 +81,7 @@ describe('findAllTuits', () => {
     });
     afterAll(async() => {
         await Promise.all(newTuits.map(async tuit => {
-            await deleteTuit(tuit._id);
+            await deleteTuit(tuit.id);
         }))
     });
 });

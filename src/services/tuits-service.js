@@ -1,10 +1,13 @@
 import axios from "axios";
-const BASE_URL = "http://my-node-express-project-env.eba-hxq4pgvm.us-east-1.elasticbeanstalk.com"
-const TUITS_API = `${BASE_URL}/api/tuits`;
+//const BASE_URL = "http://my-node-express-project-env.eba-hxq4pgvm.us-east-1.elasticbeanstalk.com";
+const BASE_URL = "https://fse-fall22-a3.herokuapp.com";
+//const BASE_URL = "http://localhost:4000";
+const TUITS_API = `${BASE_URL}/tuits`;
 const USERS_API = `${BASE_URL}/api/users`;
 
+
 export const findAllTuits = () =>
-  axios.get(TUITS_API)
+  axios.get(`${TUITS_API}`)
     .then(response => response.data);
 
 export const findTuitById = (tid) =>
@@ -16,7 +19,7 @@ export const findTuitByUser = (uid) =>
     .then(response => response.data);
 
 export const createTuit = (uid, tuit) =>
-  axios.post(`${USERS_API}/${uid}/tuits`, tuit)
+  axios.post(`${TUITS_API}`, {...tuit, postedBy: uid})
     .then(response => response.data);
 
 export const updateTuit = (tid, tuit) =>
