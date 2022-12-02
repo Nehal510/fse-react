@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 
 import {HashRouter, Link, Route, Routes, useNavigate, useLocation} from "react-router-dom";
 import * as service from "../../services/auth-service"
+import MyTuits from "./my-tuits";
+
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -87,9 +89,16 @@ const Profile = () => {
             </ul>
           </div>
         </div>
-
-
-
+        <Routes>
+          <Route path="/mytuits"
+                 element={<MyTuits/>}/>
+         {/* <Route path="/tuits-and-replies"
+                 element={<TuitsAndReplies/>}/>
+          <Route path="/media"
+                 element={<Media/>}/>
+          <Route path="/mylikes"
+                 element={<MyLikes/>}/>*/}
+        </Routes>
       </div>
   );
 }

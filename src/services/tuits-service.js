@@ -45,7 +45,7 @@ const api = axios.create({
 });
 
 export const findTuitsByUser = (uid) =>
-    api.get(`${TUITS_API}/${uid}`)
+    api.get(`${TUITS_API}/users/${uid}`)
         .then(response => response.data);
 
 export const createTuitByUser = (uid, tuit) =>
@@ -53,10 +53,10 @@ export const createTuitByUser = (uid, tuit) =>
         .then(response => response.data);
 
 export const deleteTuit = (tid) =>
-    axios.delete(`${TUITS_API}/${tid}`)
+    api.delete(`${TUITS_API}/${tid}`)
         .then(response => response.data);
 
 export const findAllTuits = () =>
-    axios.get(`${TUITS_API}`)
+    api.get(`${TUITS_API}`)
         .then(response => response.data);
 
