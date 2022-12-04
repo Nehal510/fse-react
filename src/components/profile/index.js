@@ -3,6 +3,8 @@ import React, {useEffect, useState} from "react";
 import {HashRouter, Link, Route, Routes, useNavigate, useLocation} from "react-router-dom";
 import * as service from "../../services/auth-service"
 import MyTuits from "./my-tuits";
+import MyLikes from "./my-likes";
+import MyDislikes from "./my-dislikes";
 
 
 const Profile = () => {
@@ -84,6 +86,18 @@ const Profile = () => {
                       className={`nav-link ${location.pathname.indexOf('media') >= 0 ? 'active':''}`}>
                   Media</Link>
               </li>
+              <li className="nav-item">
+                <Link to="/profile/mylikes"
+                      className="nav-link">
+                  Liked Tuits</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/profile/mydislikes"
+                      className="nav-link">
+                  Disliked Tuits</Link>
+              </li>
+
+
 
 
             </ul>
@@ -92,7 +106,11 @@ const Profile = () => {
         <Routes>
           <Route path="/mytuits"
                  element={<MyTuits/>}/>
-         {/* <Route path="/tuits-and-replies"
+          <Route path="/mylikes"
+                 element={<MyLikes/>}/>
+          <Route path="/mydislikes"
+                 element={<MyDislikes/>}/>
+          {/* <Route path="/tuits-and-replies"
                  element={<TuitsAndReplies/>}/>
           <Route path="/media"
                  element={<Media/>}/>
