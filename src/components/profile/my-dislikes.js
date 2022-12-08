@@ -1,4 +1,4 @@
-import Tuits from "../tuits";
+import Tuits from "../tuits/index";
 import * as service from "../../services/dislikes-service";
 import {useEffect, useState} from "react";
 
